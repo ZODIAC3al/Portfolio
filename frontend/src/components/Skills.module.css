@@ -1,0 +1,118 @@
+.skills { background: var(--bg-primary); }
+
+.header { margin-bottom: 48px; }
+
+/* ─── Tabs ──────────────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.tab {
+  position: relative;
+  padding: 10px 22px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+.tab:hover {
+  color: var(--text-primary);
+  border-color: rgba(255,255,255,0.12);
+}
+.tabActive {
+  color: white;
+  border-color: transparent;
+  background: var(--gradient-main);
+}
+.tabIndicator {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-main);
+  border-radius: 24px;
+  z-index: -1;
+}
+
+/* ─── Bars ──────────────────────────────────────────────────────────────── */
+.barsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 48px;
+  margin-bottom: 48px;
+}
+
+.skillBar { display: flex; flex-direction: column; gap: 8px; }
+
+.skillMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skillName {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.skillLevel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-blue);
+}
+
+.track {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.fill {
+  height: 100%;
+  background: var(--gradient-main);
+  border-radius: 2px;
+  position: relative;
+}
+.fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  box-shadow: 0 0 8px var(--accent-blue);
+}
+
+/* ─── Tag cloud ─────────────────────────────────────────────────────────── */
+.allTags {
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.allTagsLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.tagCloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .barsGrid { grid-template-columns: 1fr; }
+}

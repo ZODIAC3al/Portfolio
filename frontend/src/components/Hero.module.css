@@ -1,0 +1,230 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: var(--nav-height);
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+  display: grid;
+  /* Text takes ~55%, photo takes ~45% — mirrors the screenshot */
+  grid-template-columns: 55fr 45fr;
+  align-items: center;
+  min-height: calc(100vh - var(--nav-height));
+}
+
+/* ── Left: Text ─────────────────────────────────────────────────────────── */
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 60px 0;
+}
+
+.hello {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--accent);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.nameAccent {
+  color: var(--accent);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
+}
+
+.bio {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 36px;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+}
+
+.social {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+.social:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255, 200, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+/* ── Right: Photo ───────────────────────────────────────────────────────── */
+.photoWrap {
+  display: flex;
+  align-items: flex-end; /* photo sits at the bottom like in the screenshot */
+  justify-content: center;
+  height: calc(100vh - var(--nav-height));
+  position: relative;
+}
+
+.photo3d {
+  width: 100%;
+  max-width: 440px;
+  height: 90%;
+  will-change: transform;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+/* When you add the real photo, it will fill this container */
+.photo3d img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  /* No border radius — matches the screenshot's clean cut-out look */
+  display: block;
+  /* Fade the bottom edge into the black background */
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+/* Placeholder shown until real photo is added */
+.photoPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #111 0%, #000 100%);
+  gap: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.placeholderInitials {
+  font-family: var(--font-display);
+  font-size: 96px;
+  color: var(--accent);
+  opacity: 0.3;
+  letter-spacing: 4px;
+}
+
+.placeholderHint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* ── Scroll cue ─────────────────────────────────────────────────────────── */
+.scrollCue {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.scrollLine {
+  display: block;
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, transparent, var(--accent));
+  animation: scrollAnim 2s ease-in-out infinite;
+}
+@keyframes scrollAnim {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.scrollText {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 40px 20px 60px;
+    gap: 40px;
+  }
+  .text {
+    padding: 0;
+    text-align: center;
+    align-items: center;
+  }
+  .bio {
+    text-align: center;
+  }
+  .actions {
+    justify-content: center;
+  }
+  .socials {
+    justify-content: center;
+  }
+  .photoWrap {
+    height: 400px;
+    order: -1;
+  }
+  .photo3d {
+    max-width: 260px;
+    height: 100%;
+  }
+}
+

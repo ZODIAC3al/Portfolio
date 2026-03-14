@@ -1,0 +1,389 @@
+/* ─── Section ────────────────────────────────────────────────── */
+.experience {
+  position: relative;
+}
+
+/* ─── Header ─────────────────────────────────────────────────── */
+.header {
+  margin-bottom: 36px;
+}
+
+/* ─── Tabs ───────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0;
+}
+
+.tab {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  text-transform: capitalize;
+}
+
+.tab:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.tabActive {
+  color: #fff;
+}
+
+.tabIndicator {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #f5a623;
+  border-radius: 2px 2px 0 0;
+}
+
+/* ─── Timeline ───────────────────────────────────────────────── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 0 20px;
+  cursor: pointer;
+}
+
+/* Spine */
+.spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  z-index: 1;
+  transition: transform 0.2s;
+}
+
+.timelineItem:hover .dot {
+  transform: scale(1.25);
+}
+
+.line {
+  width: 1px;
+  flex: 1;
+  min-height: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 4px 0;
+}
+
+/* Card */
+.card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 18px 20px 14px;
+  margin-bottom: 12px;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  overflow: hidden;
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.timelineItemExpanded .card {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Current badge */
+.currentBadge {
+  position: absolute;
+  top: 0px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #34d399;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.currentDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.85);
+  }
+}
+
+/* Card top row */
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.cardLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.colorBar {
+  width: 3px;
+  height: 36px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.role {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 3px;
+  line-height: 1.3;
+}
+
+.company {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.cardRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.period {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+
+.duration {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.28);
+  white-space: nowrap;
+}
+
+/* Tag row */
+.tagRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.location {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* Skills (expanded) */
+.skillsWrap {
+  overflow: hidden;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 12px;
+  padding-bottom: 4px;
+}
+
+.skill {
+  font-size: 0.74rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Chevron */
+.chevron {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.card:hover .chevron {
+  opacity: 1;
+}
+
+/* ─── Education Grid ─────────────────────────────────────────── */
+.eduGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.eduCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid;
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  overflow: hidden;
+  cursor: default;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.eduCard:hover {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.eduAccent {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.eduTop {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  z-index: 1;
+}
+
+.eduIcon {
+  font-size: 1.6rem;
+}
+
+.eduPeriod {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.eduDegree {
+  position: relative;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 6px;
+  z-index: 1;
+}
+
+.eduInstitution {
+  position: relative;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  z-index: 1;
+}
+
+.eduField {
+  position: relative;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 6px;
+  z-index: 1;
+}
+
+.eduLocation {
+  position: relative;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.32);
+  margin: 0 0 16px;
+  z-index: 1;
+}
+
+.eduSkills {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  z-index: 1;
+}
+
+.eduSkill {
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  font-weight: 500;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .cardTop {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cardRight {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .currentBadge {
+    position: static;
+    margin-bottom: 6px;
+  }
+
+  .eduGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    gap: 0;
+  }
+
+  .tab {
+    padding: 10px 16px;
+    font-size: 0.82rem;
+  }
+}
