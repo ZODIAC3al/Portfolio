@@ -7,8 +7,7 @@ import styles from "./Contact.module.css";
 // For local dev the Vite proxy rewrites /api → localhost:4000 so the
 // relative path works perfectly and avoids all CORS issues.
 const rawApiUrl = import.meta.env.VITE_API_URL || "";
-const API_BASE =
-  rawApiUrl && !rawApiUrl.includes("your-portfolio-api") ? rawApiUrl : "/api";
+const API_BASE = rawApiUrl || "/api";
 
 const PROJECT_TYPES = [
   "Web Application",
