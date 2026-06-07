@@ -9,7 +9,7 @@ export const PERSONAL = {
   linkedin: "https://www.linkedin.com/in/alimahershahin/",
   bio: "Building modern, high-performance web and mobile applications using open-source technologies. Passionate about clean architecture, design patterns, and scalable systems.",
   bioLong:
-    "Are you looking to build a modern, responsive website or a high-performance mobile app? I specialize in creating user-friendly, scalable solutions that bring your ideas to life. Expert in React.js and React Native, with deep experience across the full open-source stack — from frontend frameworks to backend APIs and mobile apps.",
+    "Versatile Full-Stack Engineer with expertise in building production-grade web and mobile applications across diverse ecosystems. Proven ability to architect scalable systems from concept to deployment, handling complete development lifecycles including frontend UI/UX, backend APIs, real-time databases, payment integrations, and cloud infrastructure. Passionate about writing clean, maintainable code and delivering high-performance solutions that solve real business problems—from restaurant e-commerce platforms to sports league management apps to creative studio dashboards.",
 };
 
 export const STATS = [
@@ -101,6 +101,102 @@ export const SERVICES = [
 
 export const PROJECTS = [
   {
+    id: "meto-platform",
+    name: "Meto-Platform",
+    tagline: "Full-Stack E-Commerce (MERN)",
+    desc: "Restaurant ordering & delivery platform for Meto burger chain in Alexandria, Egypt. Built with Express.js + MongoDB backend (40+ endpoints, JWT auth, bcryptjs hashing, OTP) and React 18 frontend (Vite, i18n Arabic/English, Stripe payments, Recharts analytics). Deployed to Netlify + Vercel with 99% uptime, <1s payment confirmation, 1000+ concurrent users.",
+    tech: ["React 18", "Vite", "Express.js", "MongoDB", "Node.js", "Stripe", "Cloudinary", "i18next"],
+    github: "https://github.com/ZODIAC3al/Meto-Platform",
+    live: "https://meto-platform-c8ez.vercel.app",
+    color: "#ffc800",
+    featured: true,
+    category: "Web App",
+    techSpecs: {
+      backend: [
+        "7 API route modules: authRoutes, userRoutes, productRoutes, orderRoutes, reviewRoutes, paymentRoutes, messageRoutes",
+        "7 Controllers: authController (register/login/JWT), googleAuthController (OAuth), userController, productController, orderController, reviewController, paymentController",
+        "4 Mongoose Models with validation: User, Product, Order, Review",
+        "JWT dual-token system: accessToken (7d) + refreshToken (30d) with secure HTTP-only cookies",
+        "Password hashing: bcryptjs (12 salt rounds) with crypto module",
+        "Email verification: Token-based system with 10-minute expiration",
+        "OTP verification: 6-digit OTP with SHA256 hashing",
+        "Password reset: Crypto tokens with 10-minute expiration",
+        "Refresh token rotation on each login",
+        "Cross-origin cookies handling (sameSite: 'none' for Netlify ↔ Vercel)"
+      ],
+      security: [
+        "Helmet.js for HTTP security headers",
+        "CORS with whitelist validation (Netlify, Vercel, localhost)",
+        "Rate limiting: 500 requests/60 seconds per IP",
+        "MongoDB injection prevention: express-mongo-sanitize",
+        "XSS protection: xss-clean middleware",
+        "Request validation: express-validator",
+        "Async error handling: Custom catchAsync wrapper",
+        "Error middleware: Global AppError handler"
+      ],
+      frontend: [
+        "Component-based UI: Admin, Auth, Cart, Home, Layout, Menu, Orders, User components",
+        "i18n Internationalization: Full Arabic/English support with translation keys",
+        "Cart state management: Context API with persistent storage",
+        "Responsive design: Mobile-first with Tailwind CSS",
+        "PWA Install Banner component",
+        "Framer Motion animations",
+        "Recharts analytics dashboard integration"
+      ],
+      payments: [
+        "Stripe API: Full payment flow implementation",
+        "Cloudinary: Image upload and storage",
+        "Transaction confirmation and order creation"
+      ],
+      deployment: [
+        "Frontend: Netlify (automatic CI/CD)",
+        "Backend: Vercel (serverless functions)",
+        "Database: MongoDB Atlas (cloud)"
+      ],
+      metrics: [
+        { label: "API Endpoints", value: "40+" },
+        { label: "Payment Confirmation", value: "<1s" },
+        { label: "Concurrent Users", value: "1000+" },
+        { label: "Uptime Tracking", value: "99%" }
+      ]
+    }
+  },
+  {
+    id: "roselle-angular",
+    name: "Roselle_Angular_Project",
+    tagline: "E-Commerce Shopping Platform",
+    desc: "Full-featured e-commerce application with product catalog, cart management, and order processing. Angular 21 enterprise app with 21 routes, TypeScript strict mode, RxJS observables, route guards, Bootstrap 5 UI. Complete flow: authentication (Login/Signup/OTP), products, cart, checkout, admin dashboard, Vitest testing.",
+    tech: ["Angular", "TypeScript", "RxJS", "Bootstrap 5", "Vitest"],
+    github: "https://github.com/ZODIAC3al/Angular-Ecommerce",
+    live: "https://rosselee.netlify.app/",
+    color: "#DD0031",
+    featured: true,
+    category: "Web App",
+  },
+  {
+    id: "sockit-league",
+    name: "SockitLeague",
+    tagline: "Sports League Management Mobile App",
+    desc: "Cross-platform mobile app for sports league management, team creation, and tournament organization. Expo 51 React Native app (iOS/Android/Web, <50MB) with file-based routing, Supabase real-time sync, NativeWind styling, Expo Camera. Multi-provider OAuth, WebSocket sync, offline persistence, video capture, live team updates.",
+    tech: ["React Native", "Expo", "Supabase", "TypeScript", "NativeWind"],
+    github: "https://github.com/ZODIAC3al/SockitLeague",
+    color: "#4CAF50",
+    featured: true,
+    category: "Mobile",
+  },
+  {
+    id: "lumina",
+    name: "Lumina",
+    tagline: "3D Gallery & Creative Studio Dashboard",
+    desc: "Cloud-based creative platform for creating, managing, and sharing 3D projects/galleries with real-time collaboration. React 19 + Firebase dashboard (Vite, Tailwind CSS v4, Framer Motion) with Firestore real-time queries, Context API state, responsive UI. Dashboard with Recharts analytics, project CRUD, optimistic updates, dark/light theme, 500-object storage tracking, 95+ Lighthouse score.",
+    tech: ["React 19", "Firebase", "Three.js", "Tailwind CSS", "Framer Motion", "Recharts"],
+    github: "https://github.com/ZODIAC3al",
+    live: "https://lumina11.web.app/",
+    color: "#F5A623",
+    featured: true,
+    category: "Web App",
+  },
+  {
     id: "thara",
     name: "Thara",
     tagline: "Modern E-Commerce PWA",
@@ -109,7 +205,7 @@ export const PROJECTS = [
     github: "https://github.com/ZODIAC3al/Thara",
     live: "https://thara-alpha.vercel.app/",
     color: "#ffc800",
-    featured: true,
+    featured: false,
     category: "Web App",
   },
   {
@@ -125,18 +221,6 @@ export const PROJECTS = [
     category: "Web App",
   },
   {
-    id: "lumina",
-    name: "Lumina",
-    tagline: "3D Web Editor & Spatial Design Tool",
-    desc: "Browser-based 3D scene editor with real-time object manipulation, lighting controls, GLTF/OBJ model loading, and WebGL rendering optimized for 60fps.",
-    category: "Web App",
-    tech: ["React", "Three.js", "TypeScript", "Firebase", "GSAP"],
-    color: "#F5A623",
-    github: "https://github.com/ZODIAC3al",
-    live: "https://lumina11.web.app/",
-    featured: true,
-  },
-  {
     id: "orbit",
     name: "Orbit",
     tagline: "Aerospace Mission Control Dashboard",
@@ -146,31 +230,7 @@ export const PROJECTS = [
     color: "#4FC3F7",
     github: "https://github.com/ZODIAC3al",
     live: "https://orbit-da7d8.web.app/",
-    featured: true,
-  },
-  {
-    id: "rossele",
-    name: "Rossele",
-    tagline: "Angular Course Delivery Platform",
-    desc: "Full Angular course platform with video lessons, quizzes, progress tracking, lazy-loaded modules, route guards, interceptors, and reactive forms.",
-    category: "Web App",
-    tech: ["Angular", "TypeScript", "RxJS", "SCSS"],
-    color: "#EF5350",
-    github: "https://github.com/ZODIAC3al",
-    live: "https://rosselee.netlify.app/",
     featured: false,
-  },
-
-  {
-    id: "sockit-league",
-    name: "SockitLeague",
-    tagline: "Sports Social Platform",
-    desc: "Full-featured React Native sports app with video recording, authentication, and real-time features built on Expo.",
-    tech: ["React Native", "Expo", "TypeScript", "Firebase"],
-    github: "https://github.com/ZODIAC3al/SockitLeague",
-    color: "#ffc800",
-    featured: true,
-    category: "Mobile",
   },
   {
     id: "node-ecommerce",
@@ -182,18 +242,6 @@ export const PROJECTS = [
     color: "#ffc800",
     featured: false,
     category: "Backend",
-  },
-
-  {
-    id: "angular-ecommerce",
-    name: "Angular E-Commerce",
-    tagline: "Enterprise Shopping App",
-    desc: "Full-featured Angular shopping application showcasing enterprise architecture patterns.",
-    tech: ["Angular", "TypeScript", "RxJS"],
-    github: "https://github.com/ZODIAC3al/Angular-Ecommerce",
-    color: "#ffc800",
-    featured: false,
-    category: "Web App",
   },
 ];
 

@@ -174,6 +174,16 @@
   color: var(--text-secondary);
 }
 
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
 @media (max-width: 1024px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -181,4 +191,239 @@
   .grid { grid-template-columns: 1fr; }
   .headerRow { flex-direction: column; align-items: flex-start; }
   .githubCta { flex-direction: column; }
+}
+
+/* ─── Modal ─────────────────────────────────────────────────────────────── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modalContainer {
+  background: #080808;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  max-width: 720px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.modalContainer::-webkit-scrollbar {
+  width: 4px;
+}
+.modalContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modalContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+.modalContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 200, 0, 0.3);
+}
+
+.modalClose {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.modalClose:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.modalHeader {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.modalColorDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.modalTitle {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  color: #fff;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+
+.modalTagline {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.modalLinks {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.modalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.2s ease;
+}
+.modalLink:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.modalLinkLive {
+  background: rgba(255, 200, 0, 0.05);
+}
+.modalLinkLive:hover {
+  background: rgba(255, 200, 0, 0.12) !important;
+}
+
+.modalContent {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 24px;
+}
+
+.modalDesc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.specsTitle {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 8px;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.metricCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.metricValue {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.metricLabel {
+  font-size: 9px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.specSection {
+  margin-bottom: 28px;
+}
+
+.specSubTitle {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.specList {
+  padding-left: 20px;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.specList li {
+  margin-bottom: 6px;
+}
+
+.genericSpecs {
+  margin-top: 24px;
+}
+
+.techTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .modalContainer {
+    padding: 28px 20px;
+  }
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .modalClose {
+    top: 16px;
+    right: 16px;
+  }
 }

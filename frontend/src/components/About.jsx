@@ -70,7 +70,7 @@ export default function About() {
             <motion.div className={styles.actions} {...stagger(5)}>
               {/* Download CV — points to /public/AliMaher_CV.pdf */}
               <a
-                href="https://drive.google.com/uc?export=download&id=1XVJKdrOS3t6c6vFh1zIBnqFFNBldWebc"
+                href="https://drive.google.com/uc?export=download&id=189RZoh6wkDcwHwTAL7T__Zq8zNU4GtMf"
                 download="AliMaher_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"

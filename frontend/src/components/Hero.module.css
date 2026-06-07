@@ -109,26 +109,60 @@
   position: relative;
 }
 
-.photo3d {
-  width: 100%;
-  max-width: 440px;
-  height: 90%;
-  will-change: transform;
-  transform-style: preserve-3d;
-  cursor: pointer;
+.photo {
+  height: 100%;
+  width: auto;
+  max-height: 85vh;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  image-rendering: -webkit-optimize-contrast;
+  z-index: 2;
+  position: relative;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Apply advanced radial-gradient mask to smoothly fade cropped bottom & right edges */
+  -webkit-mask-image: radial-gradient(circle at 45% 35%, black 45%, transparent 85%);
+  mask-image: radial-gradient(circle at 45% 35%, black 45%, transparent 85%);
 }
 
-/* When you add the real photo, it will fill this container */
-.photo3d img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  /* No border radius — matches the screenshot's clean cut-out look */
-  display: block;
-  /* Fade the bottom edge into the black background */
-  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+.photo:hover {
+  transform: scale(1.02);
+}
+
+.glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 200, 0, 0.15) 0%,
+    rgba(255, 200, 0, 0.04) 40%,
+    transparent 70%
+  );
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  filter: blur(40px);
+  animation: pulseGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1.15;
+  }
 }
 
 /* Placeholder shown until real photo is added */
@@ -222,9 +256,14 @@
     height: 400px;
     order: -1;
   }
-  .photo3d {
-    max-width: 260px;
-    height: 100%;
+  .photo {
+    max-height: 100%;
+    -webkit-mask-image: radial-gradient(circle at 45% 35%, black 45%, transparent 85%);
+    mask-image: radial-gradient(circle at 45% 35%, black 45%, transparent 85%);
+  }
+  .glow {
+    width: 320px;
+    height: 320px;
   }
 }
 

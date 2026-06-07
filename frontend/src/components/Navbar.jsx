@@ -18,7 +18,15 @@ export default function Navbar() {
 
   const scrollTo = (href) => {
     setMenuOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      if (href === "#contact") {
+        setTimeout(() => {
+          document.getElementById("contact-name-input")?.focus({ preventScroll: true });
+        }, 800);
+      }
+    }
   };
 
   return (

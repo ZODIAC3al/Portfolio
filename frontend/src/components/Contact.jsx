@@ -229,6 +229,7 @@ export default function Contact() {
                   <div className={styles.field}>
                     <label className={styles.label}>Name *</label>
                     <input
+                      id="contact-name-input"
                       type="text"
                       className={styles.input}
                       placeholder="Your full name"

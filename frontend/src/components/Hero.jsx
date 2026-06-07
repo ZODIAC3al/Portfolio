@@ -4,8 +4,17 @@ import aliPhoto from "../assets/ali.png";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
-  const scrollTo = (href) =>
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (href) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      if (href === "#contact") {
+        setTimeout(() => {
+          document.getElementById("contact-name-input")?.focus({ preventScroll: true });
+        }, 800);
+      }
+    }
+  };
 
   const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 30 },
@@ -110,36 +119,18 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ── Right: Photo — static, no tilt, no animation, transparent PNG on dark bg ── */}
+        {/* ── Right: Photo with glowing aura and edge-fade mask ── */}
         <motion.div
           className={styles.photoWrap}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            overflow: "hidden",
-          }}
         >
+          <div className={styles.glow} />
           <img
             src={aliPhoto}
             alt="Ali Maher"
-            style={{
-              height: "100%",
-              width: "auto",
-              maxHeight: "90vh",
-              objectFit: "contain",
-              objectPosition: "bottom center",
-              display: "block",
-              background: "transparent",
-              border: "none",
-              borderRadius: 0,
-              boxShadow: "none",
-              transform: "none",
-              imageRendering: "-webkit-optimize-contrast",
-            }}
+            className={styles.photo}
           />
         </motion.div>
       </div>
