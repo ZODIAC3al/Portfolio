@@ -1,0 +1,21 @@
+{
+  "name": "ali-maher-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ali Maher Portfolio Monorepo",
+  "main": "api/index.js",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "nodemailer": "^6.9.8",
+    "validator": "^13.11.0"
+  }
+}

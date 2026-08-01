@@ -22,6 +22,7 @@ const envOrigins = process.env.ALLOWED_ORIGINS
 const ALLOWED_ORIGINS = [
   "https://alimaher.dev",
   "https://ali-maher-portfolio.vercel.app",
+  "https://alimaher-five.vercel.app",
   ...envOrigins,
 ];
 
@@ -291,14 +292,16 @@ app.use((err, req, res, next) => {
 });
 
 // ─── Start ───────────────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`\n🚀 Server running → http://localhost:${PORT}`);
-  console.log(
-    `   Gmail : ${hasGmail() ? `✅  ${process.env.GMAIL_USER}` : "⚠️   Not configured (form logs to console instead)"}`,
-  );
-  console.log(`   Env   : ${IS_DEV ? "development" : "production"}`);
-  console.log(`   Health: http://localhost:${PORT}/api/health\n`);
-});
+if (require.main === module) {
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log(`\n🚀 Server running → http://localhost:${PORT}`);
+    console.log(
+      `   Gmail : ${hasGmail() ? `✅  ${process.env.GMAIL_USER}` : "⚠️   Not configured (form logs to console instead)"}`,
+    );
+    console.log(`   Env   : ${IS_DEV ? "development" : "production"}`);
+    console.log(`   Health: http://localhost:${PORT}/api/health\n`);
+  });
+}
 
 module.exports = app;
