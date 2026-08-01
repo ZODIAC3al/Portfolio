@@ -6,7 +6,7 @@ import styles from "./Contact.module.css";
 // Use env var only if it's set and not still the placeholder template value.
 // For local dev the Vite proxy rewrites /api → localhost:4000 so the
 // relative path works perfectly and avoids all CORS issues.
-const rawApiUrl = import.meta.env.VITE_API_URL || "";
+const rawApiUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
 const API_BASE = rawApiUrl || "/api";
 
 const PROJECT_TYPES = [

@@ -31,9 +31,11 @@ app.use(
       if (!origin) return callback(null, true);
       if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin))
         return callback(null, true);
+      if (/\.vercel\.app$/.test(origin))
+        return callback(null, true);
       if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
       console.warn(`[CORS] Blocked: ${origin}`);
-      return callback(new Error(`Origin ${origin} not allowed`));
+      return callback(null, false);
     },
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
@@ -71,7 +73,16 @@ const createTransport = () => {
   });
 };
 
-// ─── Health Check ────────────────────────────────────────────────────────────
+// ─── Health Check & Root Routes ─────────────────────────────────────────────
+app.get(["/", "/api"], (req, res) => {
+  res.json({
+    status: "ok",
+    service: "Ali Maher Portfolio API",
+    health: "/api/health",
+    contact: "/api/contact",
+  });
+});
+
 app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
