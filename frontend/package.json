@@ -10,13 +10,20 @@
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
     "framer-motion": "^11.0.0",
     "gsap": "^3.12.5",
+    "helmet": "^7.1.0",
     "lucide-react": "^0.383.0",
+    "nodemailer": "^6.9.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intersection-observer": "^9.8.1",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.23.1",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.1",
