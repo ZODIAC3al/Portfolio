@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://kids-oasis-api.vercel.app/api/:path*"
+      "destination": "https://backend-alpha-one-57.vercel.app/api/:path*"
     },
     {
       "source": "/(.*)",
