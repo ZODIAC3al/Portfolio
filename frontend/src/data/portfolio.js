@@ -101,13 +101,106 @@ export const SERVICES = [
 
 export const PROJECTS = [
   {
+    id: "kids-oasis",
+    name: "Kids Oasis",
+    tagline: "Enterprise Education Marketplace & Academy Management Platform",
+    desc: "A FAANG-grade dual-sided education marketplace connecting parents with nurseries, preschools, sports academies, language institutes, STEM/coding centers, and arts programs. Features Next.js 15 App Router, NestJS 10 API, MongoDB Atlas, Stripe payments, Socket.io real-time chat, TOTP MFA, and Cloudinary.",
+    tech: ["Next.js 15", "NestJS 10", "TypeScript", "MongoDB", "Stripe", "Socket.io", "Cloudinary", "Redux Toolkit", "Framer Motion", "i18n AR/EN"],
+    github: "https://github.com/ZODIAC3al/Kids-Oasis",
+    live: "https://kids-oasis-platform.vercel.app",
+    color: "#0EA5E9",
+    featured: true,
+    category: "Web App",
+    techSpecs: {
+      metrics: [
+        { label: "Frontend Framework", value: "Next.js 15.5" },
+        { label: "Backend API", value: "NestJS 10" },
+        { label: "Database", value: "MongoDB Atlas" },
+        { label: "Real-time & Pay", value: "Socket.io + Stripe" }
+      ],
+      backend: [
+        "NestJS 10 REST API architecture with TypeScript 5.9 and Mongoose 8.x ODM",
+        "Modular domain structure: Auth, Academies, Enrollments & Bookings, Children, Chat (Socket.io), Payments (Stripe), Cloudinary Media, Newsletter, Site APIs",
+        "Security Pipeline: Helmet, Rate Limiting, bcrypt (salt 12), TOTP MFA (speakeasy), JWT dual-token system (HttpOnly cookies), Google OAuth 2.0",
+        "8-level Role Authority Matrix: Guest, Parent, Teacher, Staff, Owner, Support, Admin, SuperAdmin hierarchy",
+        "API Documentation with Swagger / OpenAPI 3.0"
+      ],
+      frontend: [
+        "Next.js 15.5 App Router with TypeScript 5.x, Redux Toolkit, and Axios",
+        "next-intl internationalization with full Arabic (RTL) and English (LTR) support",
+        "Vanilla CSS + CSS Custom Properties & Framer Motion 11 animations",
+        "shadcn/ui & Lucide React UI components with responsive mobile-first design"
+      ],
+      payments: [
+        "Stripe PaymentIntent flow for online tuition payments and booking deposits",
+        "Cloudinary CDN integration for image uploads and media optimization"
+      ],
+      deployment: [
+        "Frontend: Vercel Edge Network",
+        "Backend: Vercel Serverless Functions (NestJS API)",
+        "Database: MongoDB Atlas"
+      ]
+    }
+  },
+  {
+    id: "wamdh",
+    name: "WAMDH (ومضة)",
+    tagline: "AI-Powered Spaced-Repetition Learning & Knowledge Graph Ecosystem",
+    desc: "Full-stack cross-platform study ecosystem designed to supercharge student learning through Retrieval-Augmented Generation (RAG) AI Tutor (Mona), SuperMemo-2 (SM-2) spaced repetition flashcards, auto-generated quizzes, AI study planner/Kanban, PyMuPDF/PyTesseract OCR, real-time peer study communities, and auto-evolving knowledge graphs.",
+    tech: ["React Native", "Expo SDK 51", "Next.js 14", "Django REST", "MongoDB", "Google Gemini", "SuperMemo SM-2", "RAG", "PyTesseract OCR", "i18n RTL"],
+    github: "https://github.com/ZODIAC3al",
+    live: "https://wamdh.vercel.app/",
+    color: "#8E75B2",
+    featured: true,
+    category: "Mobile",
+    techSpecs: {
+      metrics: [
+        { label: "Mobile Stack", value: "Expo SDK 51" },
+        { label: "Backend Core", value: "Django DRF" },
+        { label: "AI Engine", value: "Gemini 1.5 + RAG" },
+        { label: "Retention Alg", value: "SuperMemo SM-2" }
+      ],
+      backend: [
+        "Django 5.0 REST Framework API with SimpleJWT authentication and MongoDB database router",
+        "RAG Pipeline: PyMuPDF + PyTesseract OCR extraction, 500-word chunking (50-word overlap), SentenceTransformers (all-MiniLM-L6-v2) 384-dim dense embeddings",
+        "SuperMemo-2 (SM-2) Spaced Repetition formula for recall interval optimization",
+        "Google Gemini 1.5 Flash grounded AI Tutor (Mona) with optional ELI5 mode",
+        "Django Channels & Redis Pub/Sub for real-time study community messaging"
+      ],
+      frontend: [
+        "React Native 0.74 & Expo SDK 51 cross-platform mobile application",
+        "Next.js 14 Web Marketing Site",
+        "Full Arabic (RTL) and English (LTR) i18n support",
+        "Interactive LaTeX & Math Whiteboard canvas",
+        "Zustand state management & React Query client"
+      ],
+      deployment: [
+        "Mobile: Expo SDK / React Native",
+        "Web: Next.js on Vercel Edge Network",
+        "Backend: Django DRF + MongoDB + Redis"
+      ]
+    }
+  },
+  {
+    id: "the-code-father",
+    name: "The Code Father",
+    tagline: "Interactive Developer Learning & Coding Platform",
+    desc: "Interactive educational platform for developer learning, coding practice, structured programming tracks, and developer tools.",
+    tech: ["Next.js", "React", "TypeScript", "Node.js", "Tailwind CSS"],
+    github: "https://github.com/ZODIAC3al",
+    live: "https://the-code-father-v1.vercel.app/en",
+    color: "#E0234E",
+    featured: true,
+    category: "Web App",
+  },
+  {
     id: "meto-platform",
     name: "Meto-Platform",
     tagline: "Full-Stack E-Commerce (MERN)",
     desc: "Restaurant ordering & delivery platform for Meto burger chain in Alexandria, Egypt. Built with Express.js + MongoDB backend (40+ endpoints, JWT auth, bcryptjs hashing, OTP) and React 18 frontend (Vite, i18n Arabic/English, Stripe payments, Recharts analytics). Deployed to Netlify + Vercel with 99% uptime, <1s payment confirmation, 1000+ concurrent users.",
     tech: ["React 18", "Vite", "Express.js", "MongoDB", "Node.js", "Stripe", "Cloudinary", "i18next"],
     github: "https://github.com/ZODIAC3al/Meto-Platform",
-    live: "https://meto-platform-c8ez.vercel.app",
+    live: "https://meto-frontend.vercel.app/",
     color: "#ffc800",
     featured: true,
     category: "Web App",
@@ -122,11 +215,11 @@ export const PROJECTS = [
         "OTP verification: 6-digit OTP with SHA256 hashing",
         "Password reset: Crypto tokens with 10-minute expiration",
         "Refresh token rotation on each login",
-        "Cross-origin cookies handling (sameSite: 'none' for Netlify ↔ Vercel)"
+        "Cross-origin cookies handling"
       ],
       security: [
         "Helmet.js for HTTP security headers",
-        "CORS with whitelist validation (Netlify, Vercel, localhost)",
+        "CORS with whitelist validation",
         "Rate limiting: 500 requests/60 seconds per IP",
         "MongoDB injection prevention: express-mongo-sanitize",
         "XSS protection: xss-clean middleware",
@@ -149,7 +242,7 @@ export const PROJECTS = [
         "Transaction confirmation and order creation"
       ],
       deployment: [
-        "Frontend: Netlify (automatic CI/CD)",
+        "Frontend: Vercel",
         "Backend: Vercel (serverless functions)",
         "Database: MongoDB Atlas (cloud)"
       ],
@@ -165,10 +258,10 @@ export const PROJECTS = [
     id: "roselle-angular",
     name: "Roselle_Angular_Project",
     tagline: "E-Commerce Shopping Platform",
-    desc: "Full-featured e-commerce application with product catalog, cart management, and order processing. Angular 21 enterprise app with 21 routes, TypeScript strict mode, RxJS observables, route guards, Bootstrap 5 UI. Complete flow: authentication (Login/Signup/OTP), products, cart, checkout, admin dashboard, Vitest testing.",
+    desc: "Full-featured e-commerce application with product catalog, cart management, and order processing. Angular enterprise app with 21 routes, TypeScript strict mode, RxJS observables, route guards, Bootstrap 5 UI. Complete flow: authentication (Login/Signup/OTP), products, cart, checkout, admin dashboard, Vitest testing.",
     tech: ["Angular", "TypeScript", "RxJS", "Bootstrap 5", "Vitest"],
     github: "https://github.com/ZODIAC3al/Angular-Ecommerce",
-    live: "https://rosselee.netlify.app/",
+    live: "https://roselle-angular-project.vercel.app/",
     color: "#DD0031",
     featured: true,
     category: "Web App",
