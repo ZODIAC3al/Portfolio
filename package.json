@@ -5,7 +5,7 @@
   "description": "Ali Maher Portfolio Monorepo",
   "main": "api/index.js",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build",
+    "build": "npm install && cd frontend && npm install && npm run build",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev"
   },
