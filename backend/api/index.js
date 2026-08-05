@@ -7,6 +7,7 @@ const nodemailer = require("nodemailer");
 const validator = require("validator");
 
 const app = express();
+app.set("trust proxy", 1);
 const IS_DEV = process.env.NODE_ENV !== "production";
 
 // ─── Security Middleware ─────────────────────────────────────────────────────
@@ -270,7 +271,7 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
 // ─── Resume Download Tracker ─────────────────────────────────────────────────
 app.post("/api/track-download", async (req, res) => {
   try {
-    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+    const ip = req.headers["x-forwarded-for"] || req.socket?.remoteAddress || req.ip || "127.0.0.1";
     const { type } = req.body;
     console.log(`[Download] ${type} — IP: ${ip} — ${new Date().toISOString()}`);
 
