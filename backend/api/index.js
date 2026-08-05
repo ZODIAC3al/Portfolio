@@ -223,48 +223,55 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
 </div></body></html>`;
 
     // ── Send ──────────────────────────────────────────────────────────────────
-    const transporter = createTransport();
+    try {
+      const transporter = createTransport();
 
-    // Verify connection/credentials first — throws immediately if wrong password
-    await transporter.verify();
+      // Verify connection/credentials first — throws immediately if wrong password
+      await transporter.verify();
 
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
-      to: process.env.GMAIL_USER,
-      replyTo: safeEmail,
-      subject: `[Portfolio] ${safeSubject} — from ${safeName}`,
-      html: toAliHtml,
-    });
+      await transporter.sendMail({
+        from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
+        to: process.env.GMAIL_USER,
+        replyTo: safeEmail,
+        subject: `[Portfolio] ${safeSubject} — from ${safeName}`,
+        html: toAliHtml,
+      });
 
-    await transporter.sendMail({
-      from: `"Ali Maher" <${process.env.GMAIL_USER}>`,
-      to: safeEmail,
-      subject: `Got your message, ${safeName}! — Ali Maher`,
-      html: toSenderHtml,
-    });
+      await transporter.sendMail({
+        from: `"Ali Maher" <${process.env.GMAIL_USER}>`,
+        to: safeEmail,
+        subject: `Got your message, ${safeName}! — Ali Maher`,
+        html: toSenderHtml,
+      });
 
-    return res.status(200).json({
-      success: true,
-      message: "Message sent! I'll get back to you soon.",
-    });
+      return res.status(200).json({
+        success: true,
+        message: "Message sent! I'll get back to you soon.",
+      });
+    } catch (smtpErr) {
+      console.error("\n❌ Gmail SMTP Error:");
+      console.error("   Code:   ", smtpErr.code || "—");
+      console.error("   Message:", smtpErr.message || "—");
+      if (smtpErr.response) console.error("   SMTP:  ", smtpErr.response);
+
+      let errMsg = "Gmail error. Check GMAIL_USER and GMAIL_APP_PASSWORD in Vercel environment variables.";
+      if (smtpErr.code === "EAUTH") {
+        errMsg = "Gmail authentication failed — verify your 16-character GMAIL_APP_PASSWORD in Vercel.";
+      } else if (smtpErr.code === "ECONNREFUSED" || smtpErr.code === "ETIMEDOUT") {
+        errMsg = "Could not connect to Gmail SMTP. Please try again in a few moments.";
+      }
+
+      return res.status(400).json({
+        success: false,
+        message: errMsg,
+      });
+    }
   } catch (err) {
-    // Full error in terminal
-    console.error("\n❌ Contact form error:");
-    console.error("   Code:   ", err.code || "—");
-    console.error("   Message:", err.message || "—");
-    if (err.response) console.error("   SMTP:  ", err.response);
-    console.error("");
-
-    // Specific message for known Gmail errors
-    let userMessage = "Something went wrong. Please try again later.";
-    if (err.code === "EAUTH")
-      userMessage =
-        "Gmail auth failed — check GMAIL_USER and GMAIL_APP_PASSWORD in backend/.env";
-    else if (err.code === "ECONNREFUSED" || err.code === "ETIMEDOUT")
-      userMessage =
-        "Could not connect to Gmail SMTP. Check your internet connection.";
-
-    return res.status(500).json({ success: false, message: userMessage });
+    console.error("Unhandled contact form error:", err);
+    return res.status(400).json({
+      success: false,
+      message: "An unexpected error occurred. Please try again.",
+    });
   }
 });
 
