@@ -27,13 +27,6 @@ function loadCal() {
   return { ...DEFAULT_CAL };
 }
 
-function saveCal(cal) {
-  if (typeof window === 'undefined') return;
-  try {
-    localStorage.setItem(CAL_KEY, JSON.stringify(cal));
-  } catch (e) {}
-}
-
 const HELMET_HEIGHT = 0.568282;
 const MODEL_CENTER_X = 0.002225;
 const MODEL_CENTER_Z = -0.049966;
@@ -219,9 +212,7 @@ export function HelmetHero({
   const loadingOverlayRef = useRef(null);
   const portraitImgRef = useRef(null);
 
-  const [cal, setCal] = useState(DEFAULT_CAL);
-  const [calHidden, setCalHidden] = useState(true);
-  const [copyBtnText, setCopyBtnText] = useState('Copy values');
+  const [cal] = useState(DEFAULT_CAL);
   const [isActive, setIsActive] = useState(false);
   const [captionSeen, setCaptionSeen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -242,10 +233,6 @@ export function HelmetHero({
       }
     }
   };
-
-  useEffect(() => {
-    setCal(loadCal());
-  }, []);
 
   useEffect(() => {
     if (portraitImgRef.current) {
@@ -577,13 +564,6 @@ export function HelmetHero({
       resizeObserver.observe(container);
     }
 
-    const handleKeyDownWindow = (e) => {
-      if ((e.key === 'c' || e.key === 'C') && document.activeElement?.tagName !== 'INPUT') {
-        setCalHidden(prev => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDownWindow);
-
     applyFraming();
     resize();
 
@@ -608,7 +588,6 @@ export function HelmetHero({
       window.removeEventListener('pointerdown', handleWindowPointerDown);
       document.documentElement.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', resize);
-      window.removeEventListener('keydown', handleKeyDownWindow);
       if (resizeObserver) resizeObserver.disconnect();
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -661,41 +640,13 @@ export function HelmetHero({
     }
   };
 
-  const updateCal = (key, val) => {
-    const updated = { ...cal, [key]: val };
-    setCal(updated);
-    saveCal(updated);
-    if (typeof window !== 'undefined') {
-      if (window.__helmetApplyFraming) window.__helmetApplyFraming();
-      if (key === 'splitYFrac' && window.__helmetRebuildSplit) window.__helmetRebuildSplit();
-    }
-  };
-
-  const handleResetCal = () => {
-    setCal(DEFAULT_CAL);
-    saveCal(DEFAULT_CAL);
-    if (typeof window !== 'undefined') {
-      if (window.__helmetApplyFraming) window.__helmetApplyFraming();
-      if (window.__helmetRebuildSplit) window.__helmetRebuildSplit();
-    }
-  };
-
-  const handleCopyCal = () => {
-    const txt = JSON.stringify(cal, null, 2);
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(txt).catch(() => {});
-    }
-    setCopyBtnText('Copied');
-    setTimeout(() => setCopyBtnText('Copy values'), 1200);
-  };
-
   const signatureSrc = SIGNATURE_BASE64.startsWith('data:') 
     ? SIGNATURE_BASE64 
     : `data:image/png;base64,${SIGNATURE_BASE64}`;
 
   return (
     <>
-      {/* SECTION 1: CLEAN HELMET HERO (IMAGE + 3D HELMET + CALIBRATION CHANGER ONLY) */}
+      {/* SECTION 1: CLEAN HELMET HERO (IMAGE + 3D HELMET ONLY) */}
       <section className="hero" id="home">
         <div className={`loading-overlay ${loading ? '' : 'hidden'}`} ref={loadingOverlayRef}>
           <div className="loading-mark">Calibrating scene</div>
@@ -719,41 +670,6 @@ export function HelmetHero({
           <filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" /></filter>
           <rect width="100%" height="100%" filter="url(#noiseFilter)" />
         </svg>
-
-        {/* Calibration Value Changer (Top Right) */}
-        <div className="cal-control-wrap">
-          <button 
-            className="cal-toggle" 
-            id="calToggle" 
-            aria-label="Toggle calibration panel" 
-            title="Press C to adjust helmet alignment values" 
-            onClick={(e) => {
-              e.stopPropagation();
-              setCalHidden(prev => !prev);
-            }}
-          >
-            ⚙
-          </button>
-
-          <div 
-            className={`cal-panel ${calHidden ? 'hidden' : ''}`} 
-            id="calPanel"
-            onClick={(e) => e.stopPropagation()}
-            onTouchStart={(e) => e.stopPropagation()}
-          >
-            <div className="cal-row"><label>Center X <span>{cal.centerXFrac.toFixed(3)}</span></label><input type="range" min="0" max="1" step="0.002" value={cal.centerXFrac} onChange={(e) => updateCal('centerXFrac', parseFloat(e.target.value))} /></div>
-            <div className="cal-row"><label>Center Y <span>{cal.centerYFrac.toFixed(3)}</span></label><input type="range" min="0" max="1" step="0.002" value={cal.centerYFrac} onChange={(e) => updateCal('centerYFrac', parseFloat(e.target.value))} /></div>
-            <div className="cal-row"><label>Height % <span>{cal.heightFrac.toFixed(3)}</span></label><input type="range" min="0.15" max="0.75" step="0.002" value={cal.heightFrac} onChange={(e) => updateCal('heightFrac', parseFloat(e.target.value))} /></div>
-            <div className="cal-row"><label>FOV <span>{cal.vFovDeg.toFixed(1)}</span></label><input type="range" min="15" max="55" step="0.5" value={cal.vFovDeg} onChange={(e) => updateCal('vFovDeg', parseFloat(e.target.value))} /></div>
-            <div className="cal-row"><label>Yaw offset° <span>{cal.yawOffsetDeg.toFixed(1)}</span></label><input type="range" min="-180" max="180" step="1" value={cal.yawOffsetDeg} onChange={(e) => updateCal('yawOffsetDeg', parseFloat(e.target.value))} /></div>
-            <div className="cal-row"><label>Split height <span>{cal.splitYFrac.toFixed(3)}</span></label><input type="range" min="0.15" max="0.75" step="0.01" value={cal.splitYFrac} onChange={(e) => updateCal('splitYFrac', parseFloat(e.target.value))} /></div>
-            <div className="cal-actions">
-              <button type="button" onClick={handleResetCal}>Reset</button>
-              <button type="button" onClick={handleCopyCal}>{copyBtnText}</button>
-            </div>
-            <div className="cal-hint">Press C to toggle. Center/Height/FOV/Yaw apply live. Split height rebuilds the helmet.</div>
-          </div>
-        </div>
 
         {/* 3D Helmet & Image Stage */}
         <div className="stage-wrap">
@@ -779,16 +695,6 @@ export function HelmetHero({
             <div className="portrait-ground-shadow"></div>
             <div className="hero-canvas" id="canvasHost" ref={canvasHostRef}></div>
           </div>
-        </div>
-
-        {/* Scroll Cue to Section 2 */}
-        <div 
-          className="scroll-cue" 
-          onClick={() => scrollTo('#message')} 
-          style={{ cursor: 'pointer', position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)', zIndex: 50 }}
-        >
-          <span>scroll</span>
-          <i></i>
         </div>
       </section>
 
