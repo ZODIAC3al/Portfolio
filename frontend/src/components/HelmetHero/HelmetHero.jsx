@@ -23,7 +23,7 @@ function loadCal() {
   try {
     const saved = localStorage.getItem(CAL_KEY);
     if (saved) return { ...DEFAULT_CAL, ...JSON.parse(saved) };
-  } catch (e) { }
+  } catch (e) {}
   return { ...DEFAULT_CAL };
 }
 
@@ -31,7 +31,7 @@ function saveCal(cal) {
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(CAL_KEY, JSON.stringify(cal));
-  } catch (e) { }
+  } catch (e) {}
 }
 
 const HELMET_HEIGHT = 0.568282;
@@ -261,11 +261,18 @@ export function HelmetHero({
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(calRef.current.vFovDeg, 1, 0.01, 10);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    if ('outputColorSpace' in renderer) { renderer.outputColorSpace = THREE.SRGBColorSpace || 'sRGB'; } else if ('outputEncoding' in renderer) { renderer.outputEncoding = 3001; }
-
-    container.appendChild(renderer.domElement);
+    
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      if ('outputColorSpace' in renderer) { renderer.outputColorSpace = THREE.SRGBColorSpace || 'sRGB'; } else if ('encoding' in renderer) { renderer.encoding = 3001; }
+      container.appendChild(renderer.domElement);
+    } catch (err) {
+      console.warn('WebGL context initialization skipped:', err);
+      setLoading(false);
+      return;
+    }
 
     scene.add(new THREE.HemisphereLight(0xF6F2E9, 0x3a3a30, 0.65));
     scene.add(new THREE.AmbientLight(0xffffff, 0.35));
@@ -465,7 +472,7 @@ export function HelmetHero({
             tex.flipY = false;
             tex.needsUpdate = true;
             textures[mi] = tex;
-          }).catch(() => { });
+          }).catch(() => {});
           texPromises.push(p);
         }
       });
@@ -606,7 +613,7 @@ export function HelmetHero({
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
-      renderer.dispose();
+      if (renderer) renderer.dispose();
       delete window.__helmetApplyFraming;
       delete window.__helmetRebuildSplit;
     };
@@ -676,14 +683,14 @@ export function HelmetHero({
   const handleCopyCal = () => {
     const txt = JSON.stringify(cal, null, 2);
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(txt).catch(() => { });
+      navigator.clipboard.writeText(txt).catch(() => {});
     }
     setCopyBtnText('Copied');
     setTimeout(() => setCopyBtnText('Copy values'), 1200);
   };
 
-  const signatureSrc = SIGNATURE_BASE64.startsWith('data:')
-    ? SIGNATURE_BASE64
+  const signatureSrc = SIGNATURE_BASE64.startsWith('data:') 
+    ? SIGNATURE_BASE64 
     : `data:image/png;base64,${SIGNATURE_BASE64}`;
 
   return (
@@ -715,11 +722,11 @@ export function HelmetHero({
 
         {/* Calibration Value Changer (Top Right) */}
         <div className="cal-control-wrap">
-          <button
-            className="cal-toggle"
-            id="calToggle"
-            aria-label="Toggle calibration panel"
-            title="Press C to adjust helmet alignment values"
+          <button 
+            className="cal-toggle" 
+            id="calToggle" 
+            aria-label="Toggle calibration panel" 
+            title="Press C to adjust helmet alignment values" 
             onClick={(e) => {
               e.stopPropagation();
               setCalHidden(prev => !prev);
@@ -728,8 +735,8 @@ export function HelmetHero({
             ⚙
           </button>
 
-          <div
-            className={`cal-panel ${calHidden ? 'hidden' : ''}`}
+          <div 
+            className={`cal-panel ${calHidden ? 'hidden' : ''}`} 
             id="calPanel"
             onClick={(e) => e.stopPropagation()}
             onTouchStart={(e) => e.stopPropagation()}
@@ -775,9 +782,9 @@ export function HelmetHero({
         </div>
 
         {/* Scroll Cue to Section 2 */}
-        <div
-          className="scroll-cue"
-          onClick={() => scrollTo('#message')}
+        <div 
+          className="scroll-cue" 
+          onClick={() => scrollTo('#message')} 
           style={{ cursor: 'pointer', position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)', zIndex: 50 }}
         >
           <span>scroll</span>
@@ -819,10 +826,10 @@ export function HelmetHero({
               <img src={portraitImageSrc || "/portrait.png"} alt={title} />
               <div className="message-portrait-overlay-gradient"></div>
             </div>
-            <img
-              src={signatureSrc}
-              alt="Ali Maher Signature"
-              className="signature-overlay-img"
+            <img 
+              src={signatureSrc} 
+              alt="Ali Maher Signature" 
+              className="signature-overlay-img" 
             />
           </div>
 
@@ -832,7 +839,7 @@ export function HelmetHero({
               <span className="hello-dot"></span>
               HELLO! WELCOME TO MY PORTFOLIO
             </div>
-
+            
             <h2 className="message-name">I'm <span style={{ color: '#ccff00' }}>Ali Maher</span></h2>
             <h3 className="message-subtitle">Open-Source Software Engineer</h3>
 
@@ -864,8 +871,8 @@ export function HelmetHero({
 
             {/* Action Buttons */}
             <div className="message-actions">
-              <a
-                href="#contact"
+              <a 
+                href="#contact" 
                 className="btn-hire-custom"
                 onClick={(e) => {
                   e.preventDefault();
@@ -874,8 +881,8 @@ export function HelmetHero({
               >
                 HIRE ME
               </a>
-              <a
-                href="#projects"
+              <a 
+                href="#projects" 
                 className="btn-ghost-custom"
                 onClick={(e) => {
                   e.preventDefault();
@@ -898,7 +905,7 @@ export function HelmetHero({
               {PERSONAL?.linkedin && (
                 <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="social-icon-link" title="LinkedIn">
                   <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.6a1.49 1.49 0 1 0 0 2.98 1.49 1.49 0 0 0 0-2.98z" />
                   </svg>
                 </a>
               )}
