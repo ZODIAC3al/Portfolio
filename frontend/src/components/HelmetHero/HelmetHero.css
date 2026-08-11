@@ -230,7 +230,7 @@ body {
   transform: translateX(-50%);
   width: clamp(340px, min(98vw, 125vh), 1250px);
   height: clamp(340px, min(98vw, 84vh), 840px);
-  z-index: 9999;
+  z-index: 30;
   overflow: visible;
   pointer-events: none;
   border: none !important;
